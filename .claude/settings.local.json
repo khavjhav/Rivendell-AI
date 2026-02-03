@@ -7,7 +7,10 @@
       "Bash(npx vite:*)",
       "Bash(find:*)",
       "Bash(ls:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nOptimize performance and loading experience\n\n- Reduce loading screen duration from 2.5s to 2s for faster initial load\n- Enable esbuild minification for smaller bundle sizes  \n- Set esnext target for modern browser optimization\n- Disable sourcemaps in production for faster builds\n\nCo-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)"
     ]
   }
 }
