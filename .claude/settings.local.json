@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(set NODE_ENV=development)",
+      "Bash(npx tsx:*)",
+      "Bash(npx vite:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(npm install:*)"
+    ]
+  }
+}

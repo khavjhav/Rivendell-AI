@@ -1,43 +1,64 @@
 import { useMutation } from "@tanstack/react-query";
-import { api, type InsertContactInput } from "@shared/routes";
+import emailjs from "@emailjs/browser";
+import type { InsertContactInput } from "@shared/routes";
 import { useToast } from "@/hooks/use-toast";
+
+// Initialize EmailJS
+emailjs.init({
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+});
 
 export function useSubmitContact() {
   const { toast } = useToast();
 
   return useMutation({
     mutationFn: async (data: InsertContactInput) => {
-      const validated = api.contact.submit.input.parse(data);
-      const res = await fetch(api.contact.submit.path, {
-        method: api.contact.submit.method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(validated),
-      });
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const adminTemplateId = import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID;
+      const userTemplateId = import.meta.env.VITE_EMAILJS_USER_TEMPLATE_ID;
+      const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
 
-      if (!res.ok) {
-        if (res.status === 400) {
-          const error = api.contact.submit.responses[400].parse(await res.json());
-          throw new Error(error.message);
-        }
-        if (res.status === 500) {
-          const error = api.contact.submit.responses[500].parse(await res.json());
-          throw new Error(error.message);
-        }
-        throw new Error("Failed to submit request");
+      if (!serviceId || !adminTemplateId || !userTemplateId) {
+        throw new Error("EmailJS configuration is missing");
       }
 
-      return api.contact.submit.responses[201].parse(await res.json());
+      // Prepare template variables
+      const templateData = {
+        name: data.name,
+        email: data.email,
+        company: data.company || "Not provided",
+        serviceInterest: data.serviceInterest || "General inquiry",
+        message: data.message,
+        to_email: adminEmail,
+      };
+
+      try {
+        // Send email to admin
+        await emailjs.send(serviceId, adminTemplateId, templateData);
+
+        // Send confirmation email to user
+        await emailjs.send(serviceId, userTemplateId, {
+          ...templateData,
+          to_email: data.email,
+        });
+
+        return { success: true, message: "Message sent successfully" };
+      } catch (error) {
+        throw new Error(
+          error instanceof Error ? error.message : "Failed to send email"
+        );
+      }
     },
     onSuccess: () => {
       toast({
-        title: "Session Requested",
-        description: "The Council has received your message. We will respond shortly.",
+        title: "Message Sent! ⚜",
+        description: "Your message has reached the Council. Check your email for confirmation.",
       });
     },
     onError: (error) => {
       toast({
         title: "Submission Failed",
-        description: error.message,
+        description: error instanceof Error ? error.message : "Unable to send your message. Please try again.",
         variant: "destructive",
       });
     },

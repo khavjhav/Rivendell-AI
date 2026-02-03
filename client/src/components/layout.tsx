@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { href: "/portfolio", label: "Works" },
   { href: "/process", label: "Council" },
   { href: "/about", label: "Lore" },
-  { href: "/pricing", label: "Tribute" },
+  // { href: "/pricing", label: "Tribute" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -29,6 +29,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    // Scroll to top on route change
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
 
   return (
@@ -77,7 +79,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 whileTap={{ scale: 0.95 }}
                 className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[hsl(var(--gold-dark))] to-[hsl(var(--gold))] text-background text-sm font-semibold transition-all hover:glow-gold-sm flex items-center gap-2"
               >
-                Begin Journey <ArrowRight className="w-4 h-4" />
+                Contact Us <ArrowRight className="w-4 h-4" />
               </motion.button>
             </Link>
           </nav>
@@ -190,14 +192,36 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 Contact
               </h4>
               <p className="text-sm text-muted-foreground mb-4">San Francisco & Remote</p>
-              <Link href="/contact" className="text-[hsl(var(--gold))] text-sm hover:underline">
-                council@rivendell.ai
-              </Link>
+              <ul className="space-y-2">
+                <li>
+                  <a href="mailto:info@rivendellai.co.uk" className="text-[hsl(var(--gold))] text-sm hover:underline">
+                    info@rivendellai.co.uk
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+447376971045" className="text-[hsl(var(--gold))] text-sm hover:underline">
+                    +44 7376 971045
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div className="mt-16 pt-8 border-t border-[hsl(var(--gold)/0.1)] flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground/60">
-            <span>© {new Date().getFullYear()} Rivendell AI. All rights reserved.</span>
-            <span className="text-gold-gradient font-medium italic">"True power lies not in speed, but in wisdom."</span>
+          <div className="mt-16 pt-8 border-t border-[hsl(var(--gold)/0.1)]">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground/60 mb-4">
+              <span>© {new Date().getFullYear()} Rivendell AI. All rights reserved.</span>
+              <span className="text-gold-gradient font-medium italic">"True power lies not in speed, but in wisdom."</span>
+            </div>
+            <div className="flex flex-wrap justify-center md:justify-start gap-6 text-xs text-muted-foreground/60">
+              <Link href="/privacy" className="hover:text-[hsl(var(--gold))] transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/gdpr" className="hover:text-[hsl(var(--gold))] transition-colors">
+                GDPR Compliance
+              </Link>
+              <Link href="/terms" className="hover:text-[hsl(var(--gold))] transition-colors">
+                Terms of Service
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

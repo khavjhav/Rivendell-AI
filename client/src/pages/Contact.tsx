@@ -1,52 +1,98 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { api, type InsertContactInput } from "@shared/routes";
-import { useSubmitContact } from "@/hooks/use-contact";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Loader2, Send, MapPin, Mail, Star, Sparkles } from "lucide-react";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import emailjs from "@emailjs/browser";
+import { Loader2, Send, MapPin, Mail, Phone, Star, Sparkles } from "lucide-react";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
 };
 
+// Initialize EmailJS
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
 export default function Contact() {
-  const mutation = useSubmitContact();
-  
-  const form = useForm<InsertContactInput>({
-    resolver: zodResolver(api.contact.submit.input),
-    defaultValues: {
-      name: "",
-      email: "",
-      company: "",
-      serviceInterest: "",
-      message: ""
-    }
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    serviceInterest: "",
+    message: ""
   });
 
-  function onSubmit(data: InsertContactInput) {
-    mutation.mutate(data, {
-      onSuccess: () => form.reset()
-    });
-  }
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      // Validate required fields
+      if (!formData.name || !formData.email || !formData.message) {
+        throw new Error("Please fill in all required fields (Name, Email, Message)");
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        throw new Error("Please enter a valid email address");
+      }
+
+      const templateData = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || "Not provided",
+        serviceInterest: formData.serviceInterest || "General inquiry",
+        message: formData.message,
+        to_email: import.meta.env.VITE_ADMIN_EMAIL,
+      };
+
+      // Send to admin
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID,
+        templateData
+      );
+
+      // Send confirmation to user
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_USER_TEMPLATE_ID,
+        {
+          ...templateData,
+          to_email: formData.email,
+        }
+      );
+
+      setStatus("success");
+      setFormData({ name: "", email: "", company: "", serviceInterest: "", message: "" });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (error) {
+      setStatus("error");
+      setErrorMsg(error instanceof Error ? error.message : "Failed to send message. Please try again.");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
+  };
 
   return (
     <div className="pb-24 pt-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-          
+
           {/* Contact Info */}
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={FADE_UP}
@@ -66,7 +112,7 @@ export default function Contact() {
             </div>
 
             <div className="space-y-8">
-              <motion.div 
+              <motion.div
                 whileHover={{ x: 5 }}
                 className="flex gap-4 group"
               >
@@ -75,12 +121,26 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-medium text-lg mb-1 group-hover:text-[hsl(var(--gold))] transition-colors">Email Us</h3>
-                  <p className="text-muted-foreground">council@rivendell.ai</p>
+                  <p className="text-muted-foreground">info@rivendellai.co.uk</p>
                   <p className="text-sm text-muted-foreground mt-1">We respond within 24 hours.</p>
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
+                whileHover={{ x: 5 }}
+                className="flex gap-4 group"
+              >
+                <div className="w-12 h-12 rounded-full bg-[hsl(var(--gold)/0.1)] border border-[hsl(var(--gold)/0.2)] flex items-center justify-center shrink-0 text-[hsl(var(--gold))] group-hover:glow-gold-sm transition-all">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-lg mb-1 group-hover:text-[hsl(var(--gold))] transition-colors">Call Us</h3>
+                  <a href="tel:+447376971045" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors">+44 7376 971045</a>
+                  <p className="text-sm text-muted-foreground mt-1">Available Mon-Fri, 9am-5pm GMT</p>
+                </div>
+              </motion.div>
+
+              <motion.div
                 whileHover={{ x: 5 }}
                 className="flex gap-4 group"
               >
@@ -96,7 +156,7 @@ export default function Contact() {
             </div>
 
             {/* Quote Card */}
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.02 }}
               className="relative p-8 rounded-2xl overflow-hidden border border-[hsl(var(--gold)/0.2)]"
             >
@@ -110,7 +170,7 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Form */}
+          {/* Form - FRESH CLEAN VERSION */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -119,132 +179,117 @@ export default function Contact() {
           >
             {/* Golden accent */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[hsl(var(--gold))] to-transparent" />
-            
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name */}
+              <div>
+                <label className="text-foreground font-medium block mb-2">Your Name *</label>
+                <input
+                  type="text"
                   name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">Your Name</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Enter your full name" 
-                          className="bg-background/50 border-[hsl(var(--gold)/0.1)] h-12 rounded-xl focus:border-[hsl(var(--gold)/0.5)] focus:ring-[hsl(var(--gold)/0.2)] transition-all" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                  className="w-full h-12 rounded-xl bg-background/50 border border-[hsl(var(--gold)/0.1)] px-4 text-foreground placeholder-muted-foreground focus:border-[hsl(var(--gold)/0.5)] focus:ring-2 focus:ring-[hsl(var(--gold)/0.2)] transition-all outline-none"
                 />
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
+              </div>
+
+              {/* Email & Company */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-foreground font-medium block mb-2">Email Address *</label>
+                  <input
+                    type="email"
                     name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground">Email Address</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="you@company.com" 
-                            className="bg-background/50 border-[hsl(var(--gold)/0.1)] h-12 rounded-xl focus:border-[hsl(var(--gold)/0.5)] focus:ring-[hsl(var(--gold)/0.2)] transition-all" 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="company"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-foreground">Company (Optional)</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="Your organization" 
-                            value={field.value || ""} 
-                            onChange={field.onChange} 
-                            className="bg-background/50 border-[hsl(var(--gold)/0.1)] h-12 rounded-xl focus:border-[hsl(var(--gold)/0.5)] focus:ring-[hsl(var(--gold)/0.2)] transition-all" 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@company.com"
+                    className="w-full h-12 rounded-xl bg-background/50 border border-[hsl(var(--gold)/0.1)] px-4 text-foreground placeholder-muted-foreground focus:border-[hsl(var(--gold)/0.5)] focus:ring-2 focus:ring-[hsl(var(--gold)/0.2)] transition-all outline-none"
                   />
                 </div>
+                <div>
+                  <label className="text-foreground font-medium block mb-2">Company</label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    placeholder="Your organization (optional)"
+                    className="w-full h-12 rounded-xl bg-background/50 border border-[hsl(var(--gold)/0.1)] px-4 text-foreground placeholder-muted-foreground focus:border-[hsl(var(--gold)/0.5)] focus:ring-2 focus:ring-[hsl(var(--gold)/0.2)] transition-all outline-none"
+                  />
+                </div>
+              </div>
 
-                <FormField
-                  control={form.control}
+              {/* Service Interest */}
+              <div>
+                <label className="text-foreground font-medium block mb-2">Area of Interest</label>
+                <input
+                  type="text"
                   name="serviceInterest"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">Area of Interest</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="e.g. Web Dev, AI, Design..." 
-                          value={field.value || ""} 
-                          onChange={field.onChange} 
-                          className="bg-background/50 border-[hsl(var(--gold)/0.1)] h-12 rounded-xl focus:border-[hsl(var(--gold)/0.5)] focus:ring-[hsl(var(--gold)/0.2)] transition-all" 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  value={formData.serviceInterest}
+                  onChange={handleChange}
+                  placeholder="e.g. Web Dev, AI, Design..."
+                  className="w-full h-12 rounded-xl bg-background/50 border border-[hsl(var(--gold)/0.1)] px-4 text-foreground placeholder-muted-foreground focus:border-[hsl(var(--gold)/0.5)] focus:ring-2 focus:ring-[hsl(var(--gold)/0.2)] transition-all outline-none"
                 />
+              </div>
 
-                <FormField
-                  control={form.control}
+              {/* Message */}
+              <div>
+                <label className="text-foreground font-medium block mb-2">Your Message *</label>
+                <textarea
                   name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">Your Message</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Tell us about your project or vision..." 
-                          className="bg-background/50 border-[hsl(var(--gold)/0.1)] min-h-[150px] rounded-xl focus:border-[hsl(var(--gold)/0.5)] focus:ring-[hsl(var(--gold)/0.2)] resize-none p-4 transition-all" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell us about your project or vision..."
+                  rows={5}
+                  className="w-full rounded-xl bg-background/50 border border-[hsl(var(--gold)/0.1)] px-4 py-3 text-foreground placeholder-muted-foreground focus:border-[hsl(var(--gold)/0.5)] focus:ring-2 focus:ring-[hsl(var(--gold)/0.2)] transition-all outline-none resize-none"
                 />
+              </div>
 
-                <motion.button
-                  type="submit"
-                  disabled={mutation.isPending}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full h-14 rounded-xl bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-background font-semibold text-lg flex items-center justify-center gap-2 glow-gold hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-4"
-                >
-                  {mutation.isPending ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      Send Request <Send className="w-5 h-5" />
-                    </>
-                  )}
-                </motion.button>
-
-                {mutation.isSuccess && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center text-[hsl(var(--gold))] font-medium p-4 rounded-xl bg-[hsl(var(--gold)/0.1)] border border-[hsl(var(--gold)/0.2)]"
-                  >
-                    Message sent successfully! We'll be in touch soon.
-                  </motion.div>
+              {/* Submit Button */}
+              <motion.button
+                type="submit"
+                disabled={status === "loading"}
+                whileHover={{ scale: status === "loading" ? 1 : 1.02 }}
+                whileTap={{ scale: status === "loading" ? 1 : 0.98 }}
+                className="w-full h-14 rounded-xl bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-background font-semibold text-lg flex items-center justify-center gap-2 glow-gold hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+              >
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Request <Send className="w-5 h-5" />
+                  </>
                 )}
-              </form>
-            </Form>
+              </motion.button>
+
+              {/* Success Message */}
+              {status === "success" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  role="alert"
+                  className="text-center text-[hsl(var(--gold))] font-medium p-4 rounded-xl bg-[hsl(var(--gold)/0.1)] border border-[hsl(var(--gold)/0.2)]"
+                >
+                  ✓ Your message has reached the Council. Check your email for confirmation!
+                </motion.div>
+              )}
+
+              {/* Error Message */}
+              {status === "error" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  role="alert"
+                  className="text-center text-red-500 font-medium p-4 rounded-xl bg-red-500/10 border border-red-500/20"
+                >
+                  ✗ {errorMsg}
+                </motion.div>
+              )}
+            </form>
           </motion.div>
 
         </div>

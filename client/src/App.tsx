@@ -16,6 +16,9 @@ import About from "@/pages/About";
 import Pricing from "@/pages/Pricing";
 import Portfolio from "@/pages/Portfolio";
 import Contact from "@/pages/Contact";
+import Privacy from "@/pages/Privacy";
+import GDPR from "@/pages/GDPR";
+import Terms from "@/pages/Terms";
 
 function Router() {
   return (
@@ -28,6 +31,9 @@ function Router() {
         <Route path="/pricing" component={Pricing} />
         <Route path="/portfolio" component={Portfolio} />
         <Route path="/contact" component={Contact} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/gdpr" component={GDPR} />
+        <Route path="/terms" component={Terms} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
