@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { Analytics } from "@vercel/analytics/react";
 import NotFound from "@/pages/not-found";
 
 // Pages
@@ -58,6 +59,7 @@ function App() {
         <LoadingScreen isLoading={isLoading} />
         <Toaster />
         <Router />
+        <Analytics />
       </TooltipProvider>
     </QueryClientProvider>
   );
