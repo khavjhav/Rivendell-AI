@@ -150,7 +150,7 @@ export default function Contact() {
                 <div>
                   <h3 className="font-medium text-lg mb-1 group-hover:text-[hsl(var(--gold))] transition-colors">Visit Us</h3>
                   <p className="text-muted-foreground">The Last Homely House</p>
-                  <p className="text-sm text-muted-foreground mt-1">San Francisco, CA & Remote Worldwide</p>
+                  <p className="text-sm text-muted-foreground mt-1">London, UK</p>
                 </div>
               </motion.div>
             </div>

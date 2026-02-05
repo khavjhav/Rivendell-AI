@@ -191,7 +191,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <span className="w-2 h-2 bg-[hsl(var(--gold))] rounded-full" />
                 Contact
               </h4>
-              <p className="text-sm text-muted-foreground mb-4">San Francisco & Remote</p>
+              <p className="text-sm text-muted-foreground mb-4">London, UK</p>
               <ul className="space-y-2">
                 <li>
                   <a href="mailto:info@rivendellai.co.uk" className="text-[hsl(var(--gold))] text-sm hover:underline">
