@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Compass, Map, Hammer, Eye, Star } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
@@ -44,14 +45,18 @@ const steps = [
 export default function Process() {
   return (
     <div className="pb-24">
+      <SEO
+        title="Our Process"
+        description="The Council of Rivendell's methodology. From Discovery to Optimization, a structured path to digital excellence."
+      />
       {/* Header */}
       <div className="relative py-24 mb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--gold)/0.05)] to-transparent" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-1 bg-gradient-to-r from-transparent via-[hsl(var(--gold))] to-transparent" />
         <div className="absolute inset-0 gold-particles opacity-20" />
-        
+
         <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl mx-auto relative z-10">
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={FADE_UP}
@@ -80,7 +85,7 @@ export default function Process() {
 
         <div className="space-y-24">
           {steps.map((step, index) => (
-            <motion.div 
+            <motion.div
               key={step.number}
               initial="hidden"
               whileInView="visible"
@@ -95,7 +100,7 @@ export default function Process() {
                     {step.number}
                   </span>
                   <div className="flex items-center gap-3 relative z-10" style={{ justifyContent: index % 2 === 1 ? 'flex-start' : 'flex-end' }}>
-                    <motion.div 
+                    <motion.div
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       className={`w-10 h-10 rounded-lg bg-[hsl(var(--gold)/0.1)] border border-[hsl(var(--gold)/0.2)] flex items-center justify-center text-[hsl(var(--gold))] ${index % 2 === 1 ? 'order-first' : 'order-last md:order-first'}`}
                     >
@@ -111,8 +116,8 @@ export default function Process() {
                   </p>
                   <ul className={`inline-flex flex-col gap-2 ${index % 2 === 1 ? 'md:items-start' : 'md:items-end'}`}>
                     {step.details.map((detail, i) => (
-                      <motion.li 
-                        key={detail} 
+                      <motion.li
+                        key={detail}
                         initial={{ opacity: 0, x: index % 2 === 1 ? -10 : 10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1 }}
@@ -127,11 +132,11 @@ export default function Process() {
               </div>
 
               {/* Center Node (Desktop) */}
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.3 }}
                 className="w-5 h-5 rounded-full bg-gradient-to-br from-[hsl(var(--gold))] to-[hsl(var(--gold-dark))] relative z-10 hidden md:block ring-4 ring-background glow-gold-sm"
               >
-                <motion.div 
+                <motion.div
                   animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
                   transition={{ duration: 2, repeat: Infinity }}
                   className="absolute inset-0 bg-[hsl(var(--gold))] rounded-full"

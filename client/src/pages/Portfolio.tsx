@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ExternalLink, Sparkles, Code, Globe, Cpu, LayoutTemplate, X, ChevronRight, Target, Users, Clock, Zap, CheckCircle2, ArrowRight, Play, TrendingUp } from "lucide-react";
 import { Link } from "wouter";
+import SEO from "@/components/SEO";
+
 
 const projects = [
   {
@@ -166,7 +168,7 @@ interface Project {
 function ProjectCard({ project, index, onSelect }: { project: Project; index: number; onSelect: () => void }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-  
+
   return (
     <motion.div
       ref={ref}
@@ -184,13 +186,13 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
           whileHover={{ opacity: 1 }}
           className={`absolute -inset-[1px] rounded-2xl bg-gradient-to-r ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm`}
         />
-        
+
         {/* Header with animated gradient */}
         <div className={`relative h-44 sm:h-52 bg-gradient-to-br ${project.bgGradient} overflow-hidden`}>
           {/* Animated mesh background */}
           <div className="absolute inset-0 opacity-30">
             <motion.div
-              animate={{ 
+              animate={{
                 backgroundPosition: ["0% 0%", "100% 100%"],
               }}
               transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
@@ -201,10 +203,10 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
               }}
             />
           </div>
-          
+
           {/* Floating geometric shapes */}
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, -10, 0],
               rotate: [0, 5, 0],
               scale: [1, 1.05, 1]
@@ -214,7 +216,7 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
             style={{ backgroundColor: project.accentColor }}
           />
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, 10, 0],
               rotate: [0, -5, 0],
             }}
@@ -222,7 +224,7 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
             className="absolute bottom-6 left-6 w-12 h-12 rounded-full opacity-15"
             style={{ backgroundColor: project.accentColor }}
           />
-          
+
           {/* Center icon with pulse effect */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
@@ -236,7 +238,7 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
                 className="absolute inset-0 rounded-2xl"
                 style={{ backgroundColor: `${project.accentColor}20` }}
               />
-              <div 
+              <div
                 className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20"
                 style={{ backgroundColor: `${project.accentColor}20` }}
               >
@@ -244,7 +246,7 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
               </div>
             </motion.div>
           </div>
-          
+
           {/* Category pill */}
           <div className="absolute top-4 left-4">
             <motion.div
@@ -256,7 +258,7 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
               <span className="text-xs font-medium text-[hsl(var(--gold))]">{project.category}</span>
             </motion.div>
           </div>
-          
+
           {/* Hover overlay with CTA */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -273,14 +275,14 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
             </motion.div>
           </motion.div>
         </div>
-        
+
         {/* Content */}
         <div className="p-5 sm:p-6 space-y-4">
           <div>
             <h3 className="text-xl sm:text-2xl font-serif group-hover:text-gold-gradient transition-all duration-300">{project.title}</h3>
             <p className="text-muted-foreground text-sm mt-2 leading-relaxed line-clamp-2">{project.shortDesc}</p>
           </div>
-          
+
           {/* Key metric highlight */}
           <div className="flex items-center gap-3 p-3 rounded-xl bg-[hsl(var(--gold)/0.03)] border border-[hsl(var(--gold)/0.1)]">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${project.accentColor}15` }}>
@@ -291,11 +293,11 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
               <span className="text-xs text-muted-foreground ml-2">{project.results[0].label}</span>
             </div>
           </div>
-          
+
           {/* Tags */}
           <div className="flex flex-wrap gap-1.5">
             {project.tags.slice(0, 4).map((tag) => (
-              <span 
+              <span
                 key={tag}
                 className="text-xs px-2 py-1 rounded-md bg-muted/50 text-muted-foreground"
               >
@@ -303,7 +305,7 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
               </span>
             ))}
           </div>
-          
+
           {/* Footer */}
           <div className="flex items-center justify-between pt-3 border-t border-[hsl(var(--gold)/0.1)]">
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
@@ -333,7 +335,7 @@ function ProjectCard({ project, index, onSelect }: { project: Project; index: nu
 function FeaturedProject({ project, onSelect }: { project: Project; onSelect: () => void }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
+
   return (
     <motion.div
       ref={ref}
@@ -350,7 +352,7 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
           <div className={`relative h-64 md:h-auto md:min-h-[400px] bg-gradient-to-br ${project.bgGradient} overflow-hidden`}>
             {/* Animated background */}
             <motion.div
-              animate={{ 
+              animate={{
                 scale: [1, 1.1, 1],
                 opacity: [0.3, 0.5, 0.3]
               }}
@@ -360,10 +362,10 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
                 background: `radial-gradient(circle at 30% 70%, ${project.accentColor}40, transparent 60%)`
               }}
             />
-            
+
             {/* Floating elements */}
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, -20, 0],
                 rotate: [0, 10, 0],
               }}
@@ -372,7 +374,7 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
               style={{ backgroundColor: project.accentColor }}
             />
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, 20, 0],
                 x: [0, 10, 0],
               }}
@@ -380,7 +382,7 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
               className="absolute bottom-20 left-10 w-20 h-20 rounded-full opacity-15"
               style={{ backgroundColor: project.accentColor }}
             />
-            
+
             {/* Center icon */}
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.div
@@ -393,7 +395,7 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
                   className="absolute -inset-4 rounded-3xl"
                   style={{ backgroundColor: `${project.accentColor}30` }}
                 />
-                <div 
+                <div
                   className="relative w-24 h-24 md:w-32 md:h-32 rounded-3xl flex items-center justify-center backdrop-blur-sm border border-white/20"
                   style={{ backgroundColor: `${project.accentColor}25` }}
                 >
@@ -401,14 +403,14 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
                 </div>
               </motion.div>
             </div>
-            
+
             {/* Featured badge */}
             <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[hsl(var(--gold))] text-background text-xs font-semibold">
               <Sparkles className="w-3 h-3" />
               Featured
             </div>
           </div>
-          
+
           {/* Content side */}
           <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-center space-y-6">
             <div>
@@ -416,7 +418,7 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif mt-2 group-hover:text-gold-gradient transition-all duration-300">{project.title}</h3>
               <p className="text-muted-foreground mt-3 leading-relaxed">{project.shortDesc}</p>
             </div>
-            
+
             {/* Results grid */}
             <div className="grid grid-cols-2 gap-3">
               {project.results.slice(0, 4).map((result, i) => (
@@ -432,11 +434,11 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Tags */}
             <div className="flex flex-wrap gap-2">
               {project.tags.slice(0, 5).map((tag) => (
-                <span 
+                <span
                   key={tag}
                   className="text-xs px-3 py-1 rounded-full bg-[hsl(var(--gold)/0.05)] border border-[hsl(var(--gold)/0.1)] text-muted-foreground"
                 >
@@ -444,7 +446,7 @@ function FeaturedProject({ project, onSelect }: { project: Project; onSelect: ()
                 </span>
               ))}
             </div>
-            
+
             {/* CTA */}
             <motion.div
               whileHover={{ x: 10 }}
@@ -470,12 +472,12 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
       className="fixed inset-0 z-50 flex items-start md:items-center justify-center p-2 sm:p-4 md:p-8 overflow-y-auto"
       onClick={onClose}
     >
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="absolute inset-0 bg-background/95 backdrop-blur-md" 
+        className="absolute inset-0 bg-background/95 backdrop-blur-md"
       />
-      
+
       <motion.div
         initial={{ opacity: 0, y: 50, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -494,7 +496,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               background: `radial-gradient(circle at 50% 50%, ${project.accentColor}30, transparent 70%)`
             }}
           />
-          
+
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -511,7 +513,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 className="absolute -inset-4 border border-white/10 rounded-full"
               />
-              <div 
+              <div
                 className="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/20"
                 style={{ backgroundColor: `${project.accentColor}25` }}
               >
@@ -519,7 +521,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               </div>
             </motion.div>
           </div>
-          
+
           <motion.button
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
@@ -529,12 +531,12 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           >
             <X className="w-5 h-5" />
           </motion.button>
-          
+
           <div className="absolute bottom-4 left-6 px-4 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-[hsl(var(--gold)/0.2)]">
             <span className="text-sm font-medium text-[hsl(var(--gold))]">{project.category}</span>
           </div>
         </div>
-        
+
         {/* Content */}
         <div className="p-6 sm:p-8 md:p-10 space-y-6 max-h-[60vh] overflow-y-auto">
           <motion.div
@@ -554,8 +556,8 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               </span>
             </div>
           </motion.div>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -563,9 +565,9 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           >
             {project.description}
           </motion.p>
-          
+
           <div className="grid sm:grid-cols-2 gap-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
@@ -577,8 +579,8 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">{project.challenge}</p>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
@@ -591,8 +593,8 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               <p className="text-muted-foreground text-sm leading-relaxed">{project.solution}</p>
             </motion.div>
           </div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -602,7 +604,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               <CheckCircle2 className="w-5 h-5 text-[hsl(var(--gold))]" />
               <h3 className="font-semibold text-[hsl(var(--gold))]">Key Results</h3>
             </div>
-            
+
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {project.results.map((result, i) => (
                 <motion.div
@@ -620,15 +622,15 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               ))}
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
             className="flex flex-wrap gap-2"
           >
             {project.tags.map((tag) => (
-              <span 
+              <span
                 key={tag}
                 className="text-xs px-3 py-1.5 rounded-full bg-[hsl(var(--gold)/0.08)] border border-[hsl(var(--gold)/0.15)] text-muted-foreground"
               >
@@ -636,8 +638,8 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               </span>
             ))}
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
@@ -670,18 +672,22 @@ export default function Portfolio() {
 
   return (
     <div className="pb-16 sm:pb-24">
+      <SEO
+        title="Portfolio"
+        description="Our finest work. Discover how Rivendell AI transforms ambitious visions into remarkable results."
+      />
       {/* Header */}
       <div ref={headerRef} className="relative py-20 sm:py-28 mb-8 sm:mb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(var(--gold)/0.05)] to-transparent" />
-        
+
         {/* Animated accent line */}
-        <motion.div 
+        <motion.div
           initial={{ scaleX: 0 }}
           animate={headerInView ? { scaleX: 1 } : { scaleX: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
           className="absolute top-0 left-1/2 -translate-x-1/2 w-48 sm:w-72 h-0.5 bg-gradient-to-r from-transparent via-[hsl(var(--gold))] to-transparent origin-center"
         />
-        
+
         {/* Floating decorative elements */}
         <motion.div
           animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
@@ -693,15 +699,15 @@ export default function Portfolio() {
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
           className="absolute bottom-16 left-[10%] w-14 h-14 rounded-full bg-[hsl(var(--gold)/0.03)] border border-[hsl(var(--gold)/0.1)] hidden lg:block"
         />
-        
+
         <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-3xl"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={headerInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
               transition={{ delay: 0.2 }}
@@ -716,7 +722,7 @@ export default function Portfolio() {
               <span className="text-sm font-medium text-[hsl(var(--gold))] uppercase tracking-widest">Our Finest Work</span>
             </motion.div>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-serif mb-6">
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ delay: 0.3 }}
@@ -725,7 +731,7 @@ export default function Portfolio() {
                 Portfolio
               </motion.span>
             </h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={headerInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ delay: 0.5 }}
@@ -741,9 +747,9 @@ export default function Portfolio() {
       <div className="container mx-auto px-4 md:px-6 mb-16">
         <div className="space-y-8">
           {featuredProjects.map((project) => (
-            <FeaturedProject 
-              key={project.id} 
-              project={project} 
+            <FeaturedProject
+              key={project.id}
+              project={project}
               onSelect={() => setSelectedProject(project)}
             />
           ))}
@@ -752,7 +758,7 @@ export default function Portfolio() {
 
       {/* Other Projects Grid */}
       <div className="container mx-auto px-4 md:px-6">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -760,12 +766,12 @@ export default function Portfolio() {
         >
           More <span className="text-gold-gradient">Projects</span>
         </motion.h2>
-        
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {otherProjects.map((project, i) => (
-            <ProjectCard 
-              key={project.id} 
-              project={project} 
+            <ProjectCard
+              key={project.id}
+              project={project}
               index={i}
               onSelect={() => setSelectedProject(project)}
             />
@@ -775,7 +781,7 @@ export default function Portfolio() {
 
       {/* CTA Section */}
       <div className="container mx-auto px-4 md:px-6 mt-20 sm:mt-28">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -785,29 +791,29 @@ export default function Portfolio() {
           {/* Background effects */}
           <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gold)/0.1)] via-[hsl(var(--gold)/0.05)] to-transparent rounded-3xl" />
           <div className="absolute inset-0 border border-[hsl(var(--gold)/0.2)] rounded-3xl" />
-          
+
           {/* Animated corner accents */}
-          <motion.div 
+          <motion.div
             animate={{ opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 3, repeat: Infinity }}
             className="absolute top-6 left-6 w-16 h-16 border-l-2 border-t-2 border-[hsl(var(--gold)/0.4)] rounded-tl-2xl"
           />
-          <motion.div 
+          <motion.div
             animate={{ opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 3, repeat: Infinity, delay: 0.75 }}
             className="absolute top-6 right-6 w-16 h-16 border-r-2 border-t-2 border-[hsl(var(--gold)/0.4)] rounded-tr-2xl"
           />
-          <motion.div 
+          <motion.div
             animate={{ opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
             className="absolute bottom-6 left-6 w-16 h-16 border-l-2 border-b-2 border-[hsl(var(--gold)/0.4)] rounded-bl-2xl"
           />
-          <motion.div 
+          <motion.div
             animate={{ opacity: [0.3, 0.7, 0.3] }}
             transition={{ duration: 3, repeat: Infinity, delay: 2.25 }}
             className="absolute bottom-6 right-6 w-16 h-16 border-r-2 border-b-2 border-[hsl(var(--gold)/0.4)] rounded-br-2xl"
           />
-          
+
           <div className="relative z-10 max-w-2xl mx-auto">
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -822,7 +828,7 @@ export default function Portfolio() {
                 Let's transform your vision into reality. Our team is ready to craft your next success story.
               </p>
               <Link href="/contact">
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.05, boxShadow: "0 0 40px hsl(var(--gold) / 0.3)" }}
                   whileTap={{ scale: 0.98 }}
                   className="px-8 sm:px-10 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-background font-semibold text-lg transition-all"

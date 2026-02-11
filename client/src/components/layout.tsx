@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import logoImage from "@assets/logo_(2)_1770018915716.png";
+import { FloatingMenu } from "./FloatingMenu";
 
 const NAV_LINKS = [
   { href: "/", label: "Sanctuary" },
@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/portfolio", label: "Works" },
   { href: "/process", label: "Council" },
   { href: "/about", label: "Lore" },
+  { href: "/blog", label: "News" },
   // { href: "/pricing", label: "Tribute" },
 ];
 
@@ -43,12 +44,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <Link href="/" className="group flex items-center gap-3 z-50">
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
               className="w-12 h-12 flex items-center justify-center group-hover:glow-gold-sm transition-all duration-300"
             >
-              <img src={logoImage} alt="Rivendell AI" className="w-full h-full object-contain" />
+              <img src="/favicon1.png" alt="Rivendell AI" className="w-full h-full object-contain" />
             </motion.div>
             <span className="font-serif text-xl font-medium tracking-tight text-foreground group-hover:text-gold-gradient transition-all">
               Rivendell AI
@@ -74,7 +75,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </Link>
             ))}
             <Link href="/contact" className="ml-4">
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[hsl(var(--gold-dark))] to-[hsl(var(--gold))] text-background text-sm font-semibold transition-all hover:glow-gold-sm flex items-center gap-2"
@@ -150,18 +151,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4 md:px-6">
           {/* Golden line accent */}
           <div className="w-24 h-0.5 bg-gradient-to-r from-[hsl(var(--gold))] to-transparent mb-12" />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <img src={logoImage} alt="Rivendell AI" className="w-8 h-8 object-contain" />
+                <img src="/favicon1.png" alt="Rivendell AI" className="w-8 h-8 object-contain" />
                 <span className="font-serif text-xl font-bold text-gold-gradient">Rivendell AI</span>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
                 Where elven serenity meets modern technological precision. Crafting digital sanctuaries for the future.
               </p>
             </div>
-            
+
             <div>
               <h4 className="font-medium mb-6 text-foreground flex items-center gap-2">
                 <span className="w-2 h-2 bg-[hsl(var(--gold))] rounded-full" />
@@ -171,6 +172,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <li><Link href="/" className="hover:text-[hsl(var(--gold))] transition-colors">Home</Link></li>
                 <li><Link href="/about" className="hover:text-[hsl(var(--gold))] transition-colors">Lore</Link></li>
                 <li><Link href="/careers" className="hover:text-[hsl(var(--gold))] transition-colors">Join the Council</Link></li>
+                <li><Link href="/faq" className="hover:text-[hsl(var(--gold))] transition-colors">FAQ</Link></li>
+                <li><Link href="/blog" className="hover:text-[hsl(var(--gold))] transition-colors">News & Insights</Link></li>
               </ul>
             </div>
 
@@ -225,6 +228,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </footer>
+
+      {/* Floating Action Menu (WhatsApp + AI) */}
+      <FloatingMenu />
     </div>
   );
 }

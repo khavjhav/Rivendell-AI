@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { Loader2, Send, MapPin, Mail, Phone, Star, Sparkles } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
@@ -86,8 +87,30 @@ export default function Contact() {
     }
   };
 
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Rivendell AI",
+    "description": "Start your journey with Rivendell AI. Summon the Council.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Rivendell AI",
+      "url": "https://rivendellai.co.uk",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "contact@rivendellai.co.uk"
+      }
+    }
+  };
+
   return (
     <div className="pb-24 pt-12">
+      <SEO
+        title="Contact Us"
+        description="Start your journey with Rivendell AI. Summon the Council and let us see if we can help you."
+        schema={schema}
+      />
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
 

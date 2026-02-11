@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import logoImage from "@assets/logo_(2)_1770018915716.png";
 
 interface LoadingScreenProps {
   isLoading: boolean;
@@ -17,18 +16,18 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
         >
           {/* Background effects */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[hsl(var(--gold)/0.08)] via-background to-background" />
-          
+
           {/* Floating particles */}
           <div className="absolute inset-0 overflow-hidden">
             {[...Array(20)].map((_, i) => (
               <motion.div
                 key={i}
-                initial={{ 
+                initial={{
                   opacity: 0,
                   y: Math.random() * 100 + 50,
                   x: Math.random() * window.innerWidth
                 }}
-                animate={{ 
+                animate={{
                   opacity: [0, 0.6, 0],
                   y: -100,
                 }}
@@ -74,7 +73,7 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
             >
               {/* Glow backdrop */}
               <motion.div
-                animate={{ 
+                animate={{
                   boxShadow: [
                     "0 0 60px 20px rgba(201, 162, 77, 0.1)",
                     "0 0 80px 30px rgba(201, 162, 77, 0.2)",
@@ -84,13 +83,13 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="absolute inset-0 rounded-full"
               />
-              
+
               {/* Logo */}
-              <motion.img 
-                src={logoImage} 
-                alt="Rivendell AI" 
+              <motion.img
+                src="/favicon1.png"
+                alt="Rivendell AI"
                 className="w-32 h-32 md:w-40 md:h-40 object-contain relative z-10"
-                animate={{ 
+                animate={{
                   filter: [
                     "drop-shadow(0 0 10px rgba(201, 162, 77, 0.3))",
                     "drop-shadow(0 0 20px rgba(201, 162, 77, 0.5))",
@@ -135,8 +134,8 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
               <motion.div
                 initial={{ x: "-100%" }}
                 animate={{ x: "100%" }}
-                transition={{ 
-                  duration: 1.5, 
+                transition={{
+                  duration: 1.5,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}

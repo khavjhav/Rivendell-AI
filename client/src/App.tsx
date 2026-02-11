@@ -2,6 +2,7 @@ import { Switch, Route } from "wouter";
 import { useState, useEffect } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout";
@@ -19,6 +20,10 @@ import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
 import GDPR from "@/pages/GDPR";
 import Terms from "@/pages/Terms";
+import Careers from "@/pages/Careers";
+import FAQ from "@/pages/FAQ";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 
 function Router() {
   return (
@@ -31,6 +36,10 @@ function Router() {
         <Route path="/pricing" component={Pricing} />
         <Route path="/portfolio" component={Portfolio} />
         <Route path="/contact" component={Contact} />
+        <Route path="/careers" component={Careers} />
+        <Route path="/faq" component={FAQ} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:id" component={BlogPost} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/gdpr" component={GDPR} />
         <Route path="/terms" component={Terms} />
@@ -54,11 +63,13 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <LoadingScreen isLoading={isLoading} />
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <HelmetProvider>
+        <TooltipProvider>
+          <LoadingScreen isLoading={isLoading} />
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </HelmetProvider>
     </QueryClientProvider>
   );
 }

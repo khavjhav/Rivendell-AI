@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, Crown, Star, Shield } from "lucide-react";
 import { Link } from "wouter";
+import SEO from "@/components/SEO";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
@@ -68,8 +69,12 @@ const tiers = [
 export default function Pricing() {
   return (
     <div className="pb-24 pt-12">
+      <SEO
+        title="Pricing"
+        description="Transparent investment options for premium craftsmanship. Choose the alliance that suits your quest."
+      />
       {/* Header */}
-      <motion.div 
+      <motion.div
         initial="hidden"
         animate="visible"
         variants={FADE_UP}
@@ -99,17 +104,16 @@ export default function Pricing() {
             variants={SCALE_IN}
             whileHover={{ y: tier.featured ? -8 : -5 }}
             transition={{ delay: i * 0.1 }}
-            className={`relative rounded-3xl p-8 border flex flex-col ${
-              tier.featured 
-                ? "bg-gradient-to-b from-card to-background border-[hsl(var(--gold)/0.5)] shadow-2xl shadow-[hsl(var(--gold)/0.1)] scale-105 z-10" 
+            className={`relative rounded-3xl p-8 border flex flex-col ${tier.featured
+                ? "bg-gradient-to-b from-card to-background border-[hsl(var(--gold)/0.5)] shadow-2xl shadow-[hsl(var(--gold)/0.1)] scale-105 z-10"
                 : "bg-background border-border hover:border-[hsl(var(--gold)/0.3)]"
-            } transition-all duration-300`}
+              } transition-all duration-300`}
           >
             {/* Golden accent for featured */}
             {tier.featured && (
               <>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-[hsl(var(--gold))] to-transparent" />
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-background text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider glow-gold-sm"
@@ -120,13 +124,12 @@ export default function Pricing() {
             )}
 
             <div className="mb-8">
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                  tier.featured 
-                    ? "bg-gradient-to-br from-[hsl(var(--gold))] to-[hsl(var(--gold-dark))] text-background glow-gold-sm" 
+                className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${tier.featured
+                    ? "bg-gradient-to-br from-[hsl(var(--gold))] to-[hsl(var(--gold-dark))] text-background glow-gold-sm"
                     : "bg-[hsl(var(--gold)/0.1)] text-[hsl(var(--gold))] border border-[hsl(var(--gold)/0.2)]"
-                }`}
+                  }`}
               >
                 <tier.icon className="w-6 h-6" />
               </motion.div>
@@ -141,8 +144,8 @@ export default function Pricing() {
 
             <ul className="space-y-4 mb-8 flex-1">
               {tier.features.map((feature, j) => (
-                <motion.li 
-                  key={feature} 
+                <motion.li
+                  key={feature}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: (i * 0.1) + (j * 0.05) }}
@@ -155,14 +158,13 @@ export default function Pricing() {
             </ul>
 
             <Link href="/contact">
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full py-3.5 rounded-xl font-semibold transition-all ${
-                  tier.featured
+                className={`w-full py-3.5 rounded-xl font-semibold transition-all ${tier.featured
                     ? "bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-background glow-gold hover:shadow-2xl"
                     : "bg-[hsl(var(--gold)/0.1)] text-[hsl(var(--gold))] border border-[hsl(var(--gold)/0.2)] hover:bg-[hsl(var(--gold)/0.15)]"
-                }`}
+                  }`}
               >
                 {tier.cta}
               </motion.button>
@@ -172,7 +174,7 @@ export default function Pricing() {
       </div>
 
       {/* FAQ Teaser */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

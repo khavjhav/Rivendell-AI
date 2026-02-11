@@ -1,0 +1,21 @@
+9:12:07 PM [express] serving on port 5000
+(!) Failed to run dependency scan. Skipping dependency pre-bundling. Error:   Failed to scan for dependencies from entries:
+  C:/Users/Asus/Downloads/Rivendell ai/client/index.html
+
+  X [ERROR] Unterminated regular expression
+
+    client/src/components/layout.tsx:23:11:
+      23 Ôöé     </div >
+         ÔòÁ            ^
+
+
+    at failureErrorWithLog (C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:926:25
+    at runOnEndCallbacks (C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:1307:45)
+    at buildResponseToResult (C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:924:7)
+    at C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:936:9
+    at new Promise (<anonymous>)
+    at requestCallbacks.on-end (C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:935:54)
+    at handleRequest (C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:628:17)
+    at handleIncomingPacket (C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:653:7)
+    at Socket.readFromStdout (C:\Users\Asus\Downloads\Rivendell ai\node_modules\vite\node_modules\esbuild\lib\main.js:581:7)

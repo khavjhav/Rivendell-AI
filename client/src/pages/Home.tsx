@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { ArrowRight, Code, Brain, Sparkles, Layers, Star, Zap } from "lucide-react";
 import { Link } from "wouter";
 
+import SEO from "@/components/SEO";
+
 const FADE_UP = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
@@ -26,19 +28,57 @@ const STAGGER_FAST = {
 };
 
 export default function Home() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Rivendell AI",
+        "url": "https://rivendellai.co.uk",
+        "logo": "https://rivendellai.co.uk/logo512.png",
+        "description": "Sanctuary for Smart Technology. Forging the future with ancient wisdom.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "UK"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "areaServed": "Worldwide",
+          "availableLanguage": ["English"]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "name": "Rivendell AI",
+        "url": "https://rivendellai.co.uk",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://rivendellai.co.uk/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  };
+
   return (
-    <div className="space-y-32 pb-24">
+    <div className="relative min-h-screen">
+      <SEO
+        title="The Council of Elrond"
+        description="Rivendell AI - Forging the future with ancient wisdom. We build digital sanctuaries and intelligent systems."
+        schema={schema}
+      />
       {/* Hero Section */}
       <section className="container mx-auto px-4 md:px-6 min-h-[85vh] flex items-center pt-10 relative">
         {/* Golden Ambient Orbs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 2 }}
             className="absolute top-20 right-[10%] w-96 h-96 bg-[hsl(var(--gold)/0.08)] rounded-full blur-[100px] float"
           />
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 2, delay: 0.5 }}
@@ -46,26 +86,26 @@ export default function Home() {
             style={{ animation: "float 8s ease-in-out infinite reverse" }}
           />
         </div>
-        
-        <motion.div 
+
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={STAGGER}
           className="max-w-4xl space-y-8 relative z-10"
         >
-          <motion.div 
-            variants={FADE_UP} 
+          <motion.div
+            variants={FADE_UP}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[hsl(var(--gold)/0.3)] bg-[hsl(var(--gold)/0.08)] text-xs font-medium tracking-wide uppercase shimmer"
           >
             <Star className="w-3 h-3 text-[hsl(var(--gold))]" fill="hsl(var(--gold))" />
             <span className="text-gold-gradient font-semibold">The New Era of Intelligence</span>
           </motion.div>
-          
+
           <motion.h1 variants={FADE_UP} className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium leading-[1.1] text-balance">
             Sanctuary for <br />
-            <motion.span 
+            <motion.span
               className="text-gold-gradient glow-gold-text inline-block"
-              animate={{ 
+              animate={{
                 textShadow: [
                   "0 0 10px hsl(var(--gold) / 0.3)",
                   "0 0 20px hsl(var(--gold) / 0.5)",
@@ -77,15 +117,15 @@ export default function Home() {
               Smart Technology
             </motion.span>
           </motion.h1>
-          
+
           <motion.p variants={FADE_UP} className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            We build digital experiences that feel natural, intuitive, and profound. 
+            We build digital experiences that feel natural, intuitive, and profound.
             Blending ancient wisdom with cutting-edge AI to forge the future of software.
           </motion.p>
-          
+
           <motion.div variants={FADE_UP} className="flex flex-col sm:flex-row gap-4 pt-4">
             <Link href="/contact">
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className="px-8 py-4 rounded-xl bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-background font-semibold text-lg shadow-lg glow-gold hover:glow-gold transition-all duration-300"
@@ -94,7 +134,7 @@ export default function Home() {
               </motion.button>
             </Link>
             <Link href="/services">
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.02, borderColor: "hsl(var(--gold) / 0.5)" }}
                 whileTap={{ scale: 0.98 }}
                 className="px-8 py-4 rounded-xl bg-card border border-border text-foreground font-medium text-lg transition-all duration-300 flex items-center gap-2 group"
@@ -110,7 +150,7 @@ export default function Home() {
       {/* Philosophy Section */}
       <section className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -119,54 +159,35 @@ export default function Home() {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gold)/0.1)] to-transparent opacity-50" />
             <div className="absolute inset-0 gold-particles" />
-            {/* Orbital Rings */}
+            {/* Vimeo Video Embed */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div 
+              <div className="w-[550px] h-[800px] overflow-hidden relative z-20">
+                <iframe
+                  src="https://player.vimeo.com/video/1137773049?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0"
+                  className="absolute top-1/2 left-1/2 w-[350%] h-full -translate-x-1/2 -translate-y-1/2"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  title="Rivendell AI Video"
+                ></iframe>
+                {/* Overlay to blend video with theme */}
+                <div className="absolute inset-0 bg-[hsl(var(--gold)/0.1)] pointer-events-none mix-blend-overlay" />
+              </div>
+
+              {/* Orbital Rings (Retained for effect) */}
+              <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="w-72 h-72 border border-[hsl(var(--gold)/0.2)] rounded-full"
+                className="absolute w-[550px] h-[550px] border border-[hsl(var(--gold)/0.2)] rounded-full z-10"
               />
-              <motion.div 
+              <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute w-56 h-56 border border-primary/20 rounded-full"
+                className="absolute w-[650px] h-[650px] border border-primary/10 rounded-full z-0"
               />
-              <motion.div 
-                animate={{ rotate: 360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute w-40 h-40 border border-[hsl(var(--gold)/0.3)] rounded-full"
-              />
-              {/* Central Glowing Orb */}
-              <motion.div 
-                animate={{ 
-                  boxShadow: [
-                    "0 0 20px hsl(var(--gold) / 0.3), 0 0 40px hsl(var(--gold) / 0.1)",
-                    "0 0 40px hsl(var(--gold) / 0.5), 0 0 80px hsl(var(--gold) / 0.2)",
-                    "0 0 20px hsl(var(--gold) / 0.3), 0 0 40px hsl(var(--gold) / 0.1)"
-                  ]
-                }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute w-24 h-24 bg-gradient-to-br from-[hsl(var(--gold-light))] to-[hsl(var(--gold-dark))] rounded-full"
-              />
-              {/* Orbiting Dots */}
-              <motion.div 
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                className="absolute w-72 h-72"
-              >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-[hsl(var(--gold))] rounded-full glow-gold-sm" />
-              </motion.div>
-              <motion.div 
-                animate={{ rotate: -360 }}
-                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="absolute w-56 h-56"
-              >
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary rounded-full" />
-              </motion.div>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -183,13 +204,13 @@ export default function Home() {
                 { title: "Build", desc: "Forging robust architectures with the strength of mithril and the flexibility of willow.", icon: "03" },
                 { title: "Support", desc: "An eternal alliance. We stand by our creations as they grow and evolve.", icon: "04" }
               ].map((item, i) => (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   variants={FADE_UP}
                   whileHover={{ x: 8 }}
                   className="flex gap-4 group cursor-default"
                 >
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.1, borderColor: "hsl(var(--gold))" }}
                     className="w-12 h-12 rounded-full border border-border flex items-center justify-center shrink-0 transition-all duration-300 group-hover:border-[hsl(var(--gold)/0.5)] group-hover:bg-[hsl(var(--gold)/0.05)]"
                   >
@@ -208,7 +229,7 @@ export default function Home() {
 
       {/* Services Grid */}
       <section className="container mx-auto px-4 md:px-6">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -217,7 +238,7 @@ export default function Home() {
         >
           {/* Golden accent line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[hsl(var(--gold))] to-transparent" />
-          
+
           <motion.div variants={STAGGER} className="text-center max-w-2xl mx-auto mb-16 space-y-4">
             <motion.div variants={FADE_UP} className="flex justify-center mb-4">
               <Zap className="w-8 h-8 text-[hsl(var(--gold))]" />
@@ -230,7 +251,7 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={STAGGER}
             className="grid md:grid-cols-3 gap-8"
           >
@@ -239,7 +260,7 @@ export default function Home() {
               { icon: Brain, title: "AI Automation", desc: "Intelligent workflows that reclaim your time and augment your capabilities." },
               { icon: Layers, title: "UI/UX Design", desc: "Interfaces that feel inevitable. Intuitive flows designed for human cognition." },
             ].map((service, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 variants={SCALE_IN}
                 whileHover={{ y: -8, borderColor: "hsl(var(--gold) / 0.4)" }}
@@ -247,8 +268,8 @@ export default function Home() {
               >
                 {/* Shimmer effect on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer" />
-                
-                <motion.div 
+
+                <motion.div
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   className="w-14 h-14 rounded-xl bg-gradient-to-br from-[hsl(var(--gold)/0.2)] to-[hsl(var(--gold)/0.05)] flex items-center justify-center mb-6 text-[hsl(var(--gold))] border border-[hsl(var(--gold)/0.2)]"
@@ -258,7 +279,7 @@ export default function Home() {
                 <h3 className="text-xl font-medium mb-3 font-serif group-hover:text-[hsl(var(--gold))] transition-colors">{service.title}</h3>
                 <p className="text-muted-foreground leading-relaxed mb-6">{service.desc}</p>
                 <Link href="/services" className="inline-flex items-center text-sm font-medium text-[hsl(var(--gold))] hover:underline gap-1 group/link">
-                  Learn more 
+                  Learn more
                   <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
                 </Link>
               </motion.div>
@@ -269,7 +290,7 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="container mx-auto px-4 md:px-6">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -282,12 +303,12 @@ export default function Home() {
             { value: "5+", label: "Years of Excellence" },
             { value: "24/7", label: "Support Available" }
           ].map((stat, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               variants={FADE_UP}
               className="text-center group"
             >
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="text-4xl md:text-5xl font-serif text-gold-gradient glow-gold-text mb-2"
               >
@@ -301,7 +322,7 @@ export default function Home() {
 
       {/* CTA */}
       <section className="container mx-auto px-4 md:px-6">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -311,16 +332,16 @@ export default function Home() {
           {/* Golden gradient background */}
           <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gold)/0.1)] via-background to-[hsl(var(--gold)/0.05)]" />
           <div className="absolute inset-0 gold-particles opacity-50" />
-          
+
           {/* Decorative corner accents */}
           <div className="absolute top-6 left-6 w-16 h-16 border-l-2 border-t-2 border-[hsl(var(--gold)/0.3)] rounded-tl-xl" />
           <div className="absolute top-6 right-6 w-16 h-16 border-r-2 border-t-2 border-[hsl(var(--gold)/0.3)] rounded-tr-xl" />
           <div className="absolute bottom-6 left-6 w-16 h-16 border-l-2 border-b-2 border-[hsl(var(--gold)/0.3)] rounded-bl-xl" />
           <div className="absolute bottom-6 right-6 w-16 h-16 border-r-2 border-b-2 border-[hsl(var(--gold)/0.3)] rounded-br-xl" />
-          
+
           <div className="relative z-10 space-y-6 max-w-3xl mx-auto">
             <motion.div
-              animate={{ 
+              animate={{
                 rotate: [0, 5, -5, 0],
                 scale: [1, 1.1, 1]
               }}
@@ -336,7 +357,7 @@ export default function Home() {
             </p>
             <div className="pt-8">
               <Link href="/contact">
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="px-10 py-5 rounded-xl bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold))] to-[hsl(var(--gold-light))] text-background font-bold text-lg glow-gold hover:shadow-2xl transition-all duration-300"
