@@ -2,6 +2,7 @@ import { Link, useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
+import { FaInstagram, FaLinkedin, FaFacebook, FaTiktok } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { FloatingMenu } from "./FloatingMenu";
 
@@ -161,6 +162,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
                 Where elven serenity meets modern technological precision. Crafting digital sanctuaries for the future.
               </p>
+              <div className="flex gap-4 pt-2">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                  <FaInstagram size={20} />
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                  <FaLinkedin size={20} />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                  <FaFacebook size={20} />
+                </a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                  <FaTiktok size={20} />
+                </a>
+              </div>
             </div>
 
             <div>
