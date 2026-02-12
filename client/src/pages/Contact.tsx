@@ -188,16 +188,16 @@ export default function Contact() {
                 <div>
                   <h3 className="font-medium text-lg mb-2 group-hover:text-[hsl(var(--gold))] transition-colors">Follow Us</h3>
                   <div className="flex gap-4">
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                    <a href="https://www.instagram.com/rivendell_ai?igsh=cnQwbG9ndTJtc2wy" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
                       <Instagram className="w-6 h-6" />
                     </a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                    <a href="https://www.linkedin.com/company/rivendell-ai/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
                       <Linkedin className="w-6 h-6" />
                     </a>
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                    <a href="https://www.facebook.com/share/1GKCGnvhye/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
                       <Facebook className="w-6 h-6" />
                     </a>
-                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                    <a href="https://www.tiktok.com/@rivendellai_uk?_r=1&_t=ZS-93hmzhHOe16" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
                       <FaTiktok className="w-5 h-5" />
                     </a>
                   </div>
