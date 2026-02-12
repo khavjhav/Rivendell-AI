@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { FaInstagram, FaLinkedin, FaFacebook, FaTiktok } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { FloatingMenu } from "./FloatingMenu";
+import { AudioPlayer } from "./AudioPlayer";
 
 const NAV_LINKS = [
   { href: "/", label: "Sanctuary" },
@@ -246,6 +247,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Floating Action Menu (WhatsApp + AI) */}
       <FloatingMenu />
+
+      {/* Background Ambient Sound */}
+      <AudioPlayer />
     </div>
   );
 }
