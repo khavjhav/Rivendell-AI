@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { Loader2, Send, MapPin, Mail, Phone, Star, Sparkles } from "lucide-react";
+import { Loader2, Send, MapPin, Mail, Phone, Star, Sparkles, Instagram, Linkedin, Facebook } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 import SEO from "@/components/SEO";
 
 const FADE_UP = {
@@ -174,6 +175,32 @@ export default function Contact() {
                   <h3 className="font-medium text-lg mb-1 group-hover:text-[hsl(var(--gold))] transition-colors">Visit Us</h3>
                   <p className="text-muted-foreground">The Last Homely House</p>
                   <p className="text-sm text-muted-foreground mt-1">London, UK</p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ x: 5 }}
+                className="flex gap-4 group"
+              >
+                <div className="w-12 h-12 rounded-full bg-[hsl(var(--gold)/0.1)] border border-[hsl(var(--gold)/0.2)] flex items-center justify-center shrink-0 text-[hsl(var(--gold))] group-hover:glow-gold-sm transition-all">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-lg mb-2 group-hover:text-[hsl(var(--gold))] transition-colors">Follow Us</h3>
+                  <div className="flex gap-4">
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                      <Instagram className="w-6 h-6" />
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                      <Linkedin className="w-6 h-6" />
+                    </a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                      <Facebook className="w-6 h-6" />
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-[hsl(var(--gold))] transition-colors hover:scale-110 transform duration-200">
+                      <FaTiktok className="w-5 h-5" />
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             </div>
