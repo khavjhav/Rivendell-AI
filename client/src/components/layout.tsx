@@ -185,6 +185,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li><Link href="/" className="hover:text-[hsl(var(--gold))] transition-colors">Home</Link></li>
+                <li><Link href="/team" className="hover:text-[hsl(var(--gold))] transition-colors">The Council</Link></li>
                 <li><Link href="/about" className="hover:text-[hsl(var(--gold))] transition-colors">Lore</Link></li>
                 <li><Link href="/careers" className="hover:text-[hsl(var(--gold))] transition-colors">Join the Council</Link></li>
                 <li><Link href="/faq" className="hover:text-[hsl(var(--gold))] transition-colors">FAQ</Link></li>

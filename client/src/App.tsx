@@ -24,6 +24,7 @@ import Careers from "@/pages/Careers";
 import FAQ from "@/pages/FAQ";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
+import Team from "@/pages/Team";
 
 function Router() {
   return (
@@ -40,6 +41,7 @@ function Router() {
         <Route path="/faq" component={FAQ} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:id" component={BlogPost} />
+        <Route path="/team" component={Team} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/gdpr" component={GDPR} />
         <Route path="/terms" component={Terms} />
