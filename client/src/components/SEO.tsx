@@ -17,8 +17,8 @@ export default function SEO({
     name = 'Rivendell AI',
     type = 'website',
     keywords = [],
-    image,
-    url,
+    image = '/og-image.png',
+    url = 'https://rivendellai.co.uk',
     schema,
 }: SEOProps) {
     const siteTitle = title ? `${title} | ${name}` : name;
