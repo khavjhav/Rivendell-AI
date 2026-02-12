@@ -21,9 +21,9 @@ export default function SEO({
     url = 'https://rivendellai.co.uk',
     schema,
 }: SEOProps) {
-    const siteTitle = title ? `${title} | ${name}` : name;
-    const siteDescription = description || "Building digital experiences that feel natural, intuitive, and profound. Blending ancient wisdom with cutting-edge AI.";
-    const siteKeywords = ["AI", "Artificial Intelligence", "Web Development", "Software Design", "Rivendell", ...keywords].join(", ");
+    const siteUrl = url || 'https://rivendellai.co.uk';
+    const activeImage = image || '/og-image.png';
+    const ogImage = activeImage.startsWith('http') ? activeImage : `${siteUrl}${activeImage}`;
 
     return (
         <Helmet>
@@ -36,8 +36,8 @@ export default function SEO({
             <meta property="og:type" content={type} />
             <meta property="og:title" content={siteTitle} />
             <meta property="og:description" content={siteDescription} />
-            {image && <meta property="og:image" content={image} />}
-            {url && <meta property="og:url" content={url} />}
+            <meta property="og:image" content={ogImage} />
+            <meta property="og:url" content={siteUrl} />
 
             {/* Twitter Card tags */}
             <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
