@@ -9,6 +9,7 @@ import { FloatingMenu } from "./FloatingMenu";
 const NAV_LINKS = [
   { href: "/", label: "Sanctuary" },
   { href: "/services", label: "Craft" },
+  { href: "/products", label: "Armory" },
   { href: "/portfolio", label: "Works" },
   { href: "/process", label: "Council" },
   { href: "/about", label: "Lore" },
@@ -200,6 +201,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li><Link href="/services" className="hover:text-[hsl(var(--gold))] transition-colors">Services</Link></li>
+                <li><Link href="/products" className="hover:text-[hsl(var(--gold))] transition-colors">Products</Link></li>
                 <li><Link href="/process" className="hover:text-[hsl(var(--gold))] transition-colors">Methodology</Link></li>
                 <li><Link href="/pricing" className="hover:text-[hsl(var(--gold))] transition-colors">Tribute</Link></li>
               </ul>

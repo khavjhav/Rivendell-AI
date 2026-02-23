@@ -49,9 +49,26 @@
   --ring: 169 59% 60%;
 
   --radius: 0.75rem;
-  
+
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
+
+  /* Sidebar */
+  --sidebar: 202 30% 11%;
+  --sidebar-foreground: 216 8% 91%;
+  --sidebar-border: 201 18% 18%;
+  --sidebar-ring: 169 59% 60%;
+  --sidebar-primary: 41 73% 55%;
+  --sidebar-primary-foreground: 201 36% 9%;
+  --sidebar-accent: 202 25% 16%;
+  --sidebar-accent-foreground: 216 8% 91%;
+
+  /* Charts */
+  --chart-1: 169 59% 60%;
+  --chart-2: 41 73% 55%;
+  --chart-3: 160 34% 45%;
+  --chart-4: 0 84% 60%;
+  --chart-5: 215 60% 55%;
 }
 
 @layer base {
