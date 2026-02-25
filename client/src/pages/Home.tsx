@@ -1,5 +1,6 @@
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Code, Brain, Sparkles, Layers, Star, Zap } from "lucide-react";
+import { ArrowRight, Code, Brain, Sparkles, Layers, Star, Zap, Volume2, VolumeX } from "lucide-react";
 import { Link } from "wouter";
 
 import SEO from "@/components/SEO";
@@ -28,6 +29,22 @@ const STAGGER_FAST = {
 };
 
 export default function Home() {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLIFrameElement>(null);
+
+  const toggleSound = () => {
+    const newMuted = !isMuted;
+    setIsMuted(newMuted);
+    if (videoRef.current?.contentWindow) {
+      videoRef.current.contentWindow.postMessage(
+        JSON.stringify({
+          method: "setVolume",
+          value: newMuted ? 0 : 1
+        }),
+        "*"
+      );
+    }
+  };
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -148,29 +165,39 @@ export default function Home() {
       </section>
 
       {/* Philosophy Section */}
-      <section className="container mx-auto px-4 md:px-6">
+      <section className="container mx-auto px-4 md:px-6 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={SCALE_IN}
-            className="relative aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden bg-card border border-[hsl(var(--gold)/0.1)] group"
+            className="relative aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden group bg-black"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gold)/0.1)] to-transparent opacity-50" />
-            <div className="absolute inset-0 gold-particles" />
             {/* Vimeo Video Embed */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-[550px] h-[800px] overflow-hidden relative z-20">
+              <div className="w-[550px] h-[800px] overflow-hidden relative z-20 bg-black">
                 <iframe
-                  src="https://player.vimeo.com/video/1137773049?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&controls=0"
+                  ref={videoRef}
+                  src="https://player.vimeo.com/video/1167630369?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&controls=0"
                   className="absolute top-1/2 left-1/2 w-[350%] h-full -translate-x-1/2 -translate-y-1/2"
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture"
                   title="Rivendell AI Video"
                 ></iframe>
-                {/* Overlay to blend video with theme */}
-                <div className="absolute inset-0 bg-[hsl(var(--gold)/0.1)] pointer-events-none mix-blend-overlay" />
+
+                {/* Volume Toggle Button */}
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={toggleSound}
+                  className="absolute bottom-10 right-10 z-30 w-12 h-12 rounded-full bg-background/50 backdrop-blur-md border border-[hsl(var(--gold)/0.3)] flex items-center justify-center text-[hsl(var(--gold))] hover:bg-[hsl(var(--gold)/0.1)] transition-colors"
+                  title={isMuted ? "Unmute" : "Mute"}
+                >
+                  {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                </motion.button>
               </div>
 
               {/* Orbital Rings (Retained for effect) */}
@@ -228,7 +255,7 @@ export default function Home() {
       </section>
 
       {/* Services Grid */}
-      <section className="container mx-auto px-4 md:px-6">
+      <section className="container mx-auto px-4 md:px-6 py-16 md:py-24">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -289,7 +316,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="container mx-auto px-4 md:px-6">
+      <section className="container mx-auto px-4 md:px-6 py-20 md:py-32">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -321,7 +348,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="container mx-auto px-4 md:px-6">
+      <section className="container mx-auto px-4 md:px-6 py-20 md:py-32">
         <motion.div
           initial="hidden"
           whileInView="visible"

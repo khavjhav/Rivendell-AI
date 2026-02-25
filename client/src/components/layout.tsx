@@ -151,8 +151,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <footer className="border-t border-[hsl(var(--gold)/0.1)] py-16 bg-background relative z-10">
         <div className="container mx-auto px-4 md:px-6">
-          {/* Golden line accent */}
-          <div className="w-24 h-0.5 bg-gradient-to-r from-[hsl(var(--gold))] to-transparent mb-12" />
+          {/* Golden line accent with continuous scanning animation */}
+          <div className="w-full h-0.5 bg-[hsl(var(--gold)/0.1)] relative overflow-hidden mb-12">
+            <motion.div
+              animate={{ x: ["100%", "-100%"] }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              className="absolute top-0 h-full w-full bg-gradient-to-r from-transparent via-[hsl(var(--gold))] to-transparent"
+            />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-4">
